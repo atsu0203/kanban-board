@@ -1,55 +1,74 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
 import styled from 'styled-components'
-import './App.css';
+import { Header as _Header } from './Header'
+import { Column } from './Column'
 
-function App() {
+export function App() {
   return (
     <Container>
-      <Header>
-         <Logo>Kanban board</Logo>
- 
-         <CardFilter placeholder="Filter cards" />
-       </Header>
-       <MainArea>
-       <Column>
-           <ColumnHeader>TODO</ColumnHeader>
- 
-           <Card>朝食をとる🍞</Card>
-           <Card>SNSをチェックする🐦</Card>
-           <Card>布団に入る (:3[___]</Card>
-        </Column>
-        <Column>
-          <ColumnHeader>Doing</ColumnHeader>
-          <Card>顔を洗う👐</Card>
-          <Card>歯を磨く🦷</Card>
-        </Column>
-        <Column>
-           <ColumnHeader>Waiting</ColumnHeader>
-        </Column>
+      <Header />
+
+      <MainArea>
+        <HorizontalScroll>
+          <Column
+            title="TODO"
+            cards={[
+              { id: 'a', text: '朝食をとる🍞' },
+              { id: 'b', text: 'SNSをチェックする🐦' },
+              { id: 'c', text: '布団に入る (:3[___]' },
+            ]}
+          />
+          <Column
+            title="Doing"
+            cards={[
+              { id: 'd', text: '顔を洗う👐' },
+              { id: 'e', text: '歯を磨く🦷' },
+            ]}
+          />
+          <Column title="Waiting" cards={[]} />
+          <Column
+            title="Done"
+            cards={[{ id: 'f', text: '布団から出る (:3っ)っ -=三[＿＿]' }]}
+          />
+        </HorizontalScroll>
       </MainArea>
     </Container>
   )
 }
 
-const Container = styled.div``
- 
-const Header = styled.div``
+const Container = styled.div`
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+`
 
-const Logo = styled.div``
+const Header = styled(_Header)`
+  flex-shrink: 0;
+`
 
-const CardFilter = styled.input``
+const MainArea = styled.div`
+  height: 100%;
+  padding: 16px 0;
+  overflow-y: auto;
+`
 
-const MainArea = styled.div``
+const HorizontalScroll = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
 
-const Column = styled.div``
+  > * {
+    margin-left: 16px;
+    flex-shrink: 0;
+  }
 
-const ColumnHeader = styled.div``
-
-const Card = styled.div``
-
-
-
+  ::after {
+    display: block;
+    flex: 0 0 16px;
+    content: '';
+  }
+`
 
 
 export default App;
