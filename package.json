@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.10.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
@@ -10,10 +11,14 @@
     "@types/node": "^16.11.49",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
+    "emotion-reset": "^3.0.1",
+    "normalize.css": "^8.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "sanitize.css": "^13.0.0",
     "styled-components": "^5.3.5",
+    "styled-reset": "^1.7.1",
     "typescript": "^4.7.4",
     "web-vitals": "^2.1.4"
   },
@@ -23,12 +28,24 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "tsc": "tsc",
-    "format": "prettier --write \"./src/**/*.{ts,tsx}\""
+    "format": "prettier --write \"./src/**/*.{ts,tsx}\"",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
       "react-app/jest"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
     ]
   },
   "browserslist": {
@@ -44,7 +61,21 @@
     ]
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^6.5.10",
+    "@storybook/addon-essentials": "^6.5.10",
+    "@storybook/addon-interactions": "^6.5.10",
+    "@storybook/addon-links": "^6.5.10",
+    "@storybook/builder-webpack5": "^6.5.10",
+    "@storybook/manager-webpack5": "^6.5.10",
+    "@storybook/node-logger": "^6.5.10",
+    "@storybook/preset-create-react-app": "^4.1.2",
+    "@storybook/react": "^6.5.10",
+    "@storybook/testing-library": "^0.0.13",
     "@types/styled-components": "^5.1.26",
-    "prettier": "^2.7.1"
+    "babel-plugin-named-exports-order": "^0.0.2",
+    "prettier": "^2.7.1",
+    "prop-types": "^15.8.1",
+    "sass": "^1.54.4",
+    "webpack": "^5.74.0"
   }
 }
