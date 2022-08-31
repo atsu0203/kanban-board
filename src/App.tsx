@@ -8,7 +8,6 @@ export function App() {
 
   return (
     <Container>
-      <Header />
       <Header filterValue={filterValue} onFilterChange={setFilterValue} />
 
       <MainArea>
@@ -30,7 +29,6 @@ export function App() {
               { id: 'e', text: '歯を磨く🦷' },
             ]}
           />
-          <Column title="Waiting" cards={[]} />
           <Column title="Waiting" filterValue={filterValue} cards={[]} />
           <Column
             title="Done"
