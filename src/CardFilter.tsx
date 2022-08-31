@@ -13,7 +13,10 @@ export function CardFilter({
   return (
     <Container>
       <SearchIcon />
-      <Input placeholder="Filter cards" />
+      <Input placeholder="Filter cards"
+      value={value}
+      onChange={ev => onChange?.(ev.currentTarget.value)}
+      />
     </Container>
   )
 }
@@ -28,15 +31,16 @@ const Container = styled.label`
 
 const SearchIcon = styled(_SearchIcon)`
   margin: 0 4px 0 8px;
-  font-size: 16px;
+  font-size: 18px;
   color: ${color.Silver};
 `
 
 const Input = styled.input.attrs({ type: 'search' })`
   width: 100%;
   padding: 6px 8px 6px 0;
+  background-color: ${color.Navy};
   color: ${color.White};
-  font-size: 14px;
+  font-size: 18px;
 
   :focus {
     outline: none;
