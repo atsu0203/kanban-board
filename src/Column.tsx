@@ -31,6 +31,10 @@ export function Column({
   const confirmInput = () => setText('')
   const cancelInput = () => setInputMode(false)
 
+  const [draggingCardID, setDraggingCardID] = useState<string | undefined>(
+    undefined,
+  )
+
   return (
     <Container>
       <Header>
@@ -53,8 +57,11 @@ export function Column({
 
       <VerticalScroll>
         {cards.map(({ id, text }) => (
-          <Card key={id} text={text} />
+            <Card.DropArea key={id}>
+            <Card text={text} />
+          </Card.DropArea>
         ))}
+        <Card.DropArea style={{ height: '100%' }} />
       </VerticalScroll>
     </Container>
   )
