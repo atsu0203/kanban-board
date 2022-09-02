@@ -25,8 +25,8 @@ export function App() {
             title="Doing"
             filterValue={filterValue}
             cards={[
-              { id: 'd', text: '顔を洗う👐' },
-              { id: 'e', text: '歯を磨く🦷' },
+              { id: 'd', text: 'arau顔を洗う👐' },
+              { id: 'e', text: 'hawo歯を磨く🦷' },
             ]}
           />
           <Column title="Waiting" filterValue={filterValue} cards={[]} />
