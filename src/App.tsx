@@ -33,7 +33,7 @@ export function App() {
           <Column
             title="Done"
             filterValue={filterValue}
-            cards={[{ id: 'f', text: 'いいねもらう布団から出る (:3っ)っ -=三[＿＿]' }]}
+            cards={[{ id: 'f', text: 'いいねいいねもらう布団から出る (:3っ)っ -=三[＿＿]' }]}
           />
         </HorizontalScroll>
       </MainArea>
