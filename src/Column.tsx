@@ -50,9 +50,9 @@ export function Column({
     onTextCancel?.()
   }
 
-  const [draggingCardID, setDraggingCardID] = useState<string | undefined>(
-    undefined,
-  )
+  // const [draggingCardID, setDraggingCardID] = useState<string | undefined>(
+  //   undefined,
+  // )
 
   return (
     <Container>
