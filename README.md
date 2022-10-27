@@ -9,5 +9,17 @@ https://atsu0203-kanban.netlify.app/
 
 ## 開発方法 -->
 
+## 使用ライブラリ
+React, ReactDOM
+styled-components
+Redux, React Redux
+Immer
+TypeScript
+Prettier
+ESLint
+Parcel
+JSON Server
+Baretest
+
 
 
