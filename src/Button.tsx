@@ -23,9 +23,9 @@ export const Button = styled.button.attrs({ type: 'button' })`
 `
 
 export const ConfirmButton = styled(Button)`
-  border-color: ${color.Blue};
+  border-color: ${color.Navy};
   background-color: ${color.Navy};
-  background-image: linear-gradient(${color.Blue}, ${color.Navy});
+  background-image: linear-gradient(${color.Navy}, ${color.Navy});
   color: ${color.White};
 
   :hover:not(:disabled) {
