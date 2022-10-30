@@ -13,27 +13,28 @@ export function App() {
       <MainArea>
         <HorizontalScroll>
           <Column
-            title="TODO"
+            title="未対応"
             text=""
             cards={[
-              { id: 'a', text: '朝食をとる🍞' },
-              { id: 'b', text: 'SNSをチェックする🐦' },
-              { id: 'c', text: '布団に入る (:3[___]' },
+              { id: 'a', text: '👍いいね機能' },
+              { id: 'b', text: '🖥️バッチ処理' },
+              { id: 'c', text: '🗑️削除機能' },
             ]}
           />
           <Column
-            title="Doing"
+            title="処理中"
             text=""
             cards={[
-              { id: 'd', text: 'arau顔を洗う👐' },
-              { id: 'e', text: 'hawo歯を磨く🦷' },
+              { id: 'e', text: '🧑🏻詳細表示' },
             ]}
           />
-          <Column title="Waiting" filterValue={filterValue} cards={[]} />
           <Column
-            title="Done"
+            title="処理済み"
             filterValue={filterValue}
-            cards={[{ id: 'f', text: '布団から出る (:3っ)っ -=三[＿＿]' }]}
+            cards={[
+              { id: 'f', text: '🌍一覧表示' },
+              { id: 'g', text: '🔑ログイン機能' }
+            ]}
           />
         </HorizontalScroll>
       </MainArea>
@@ -45,6 +46,8 @@ const Container = styled.div`
   display: flex;
   flex-flow: column;
   height: 100%;
+  margin:0;
+  html,body{margin:0;padding:0;}
 `
 
 const Header = styled(_Header)`
@@ -62,6 +65,7 @@ const HorizontalScroll = styled.div`
   width: 100%;
   height: 100%;
   overflow-x: auto;
+  justify-content: center;
 
   > * {
     margin-left: 16px;
