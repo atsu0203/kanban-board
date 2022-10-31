@@ -13,24 +13,33 @@ export function Header({
   className?: string
 }) {
   return (
-    <Container className={className}>
-      <Logo>Kanban board</Logo>
+    <Rapper>
+      <Container className={className}>
+        <Logo>開発プロジェクトボード</Logo>
 
-      <CardFilter value={filterValue} onChange={onFilterChange} />
-    </Container>
+        <CardFilter value={filterValue} onChange={onFilterChange} />
+      </Container>
+    </Rapper>
   )
 }
+
+const Rapper = styled.div`
+  background-color: ${color.Navy};
+`
 
 const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 16px;
+  padding: 20px 50px;
+  width: 700px;
+  margin-right: auto;
+  margin-left: auto;
   background-color: ${color.Navy};
 `
 
 const Logo = styled.div`
-  color: ${color.Silver};
-  font-size: 16px;
+  color: ${color.White};
+  font-size: 20px;
   font-weight: bold;
 `

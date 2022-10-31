@@ -9,9 +9,9 @@ export function Column({
   title,
   filterValue: rawFilterValue,
   cards: rawCards,
-  onCardDragStart,
-  onCardDrop,
-  onCardDeleteClick,
+  // onCardDragStart,
+  // onCardDrop,
+  // onCardDeleteClick,
   text,
   onTextChange,
   onTextConfirm,
@@ -77,7 +77,7 @@ export function Column({
 
       <VerticalScroll>
         {cards.map(({ id, text }) => (
-            <Card.DropArea key={id}>
+          <Card.DropArea key={id}>
             <Card text={text} />
           </Card.DropArea>
         ))}
@@ -114,13 +114,13 @@ const CountBadge = styled.div`
   padding: 2px 6px;
   color: ${color.Black};
   background-color: ${color.Silver};
-  font-size: 12px;
+  font-size: 16px;
   line-height: 1;
 `
 
 const ColumnName = styled.div`
   color: ${color.Black};
-  font-size: 14px;
+  font-size: 18px;
   font-weight: bold;
 `
 
@@ -132,7 +132,7 @@ const AddButton = styled.button.attrs({
   color: ${color.Black};
 
   :hover {
-    color: ${color.Blue};
+    color: ${color.Navy};
   }
 `
 
