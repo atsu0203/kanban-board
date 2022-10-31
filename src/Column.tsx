@@ -11,7 +11,7 @@ export function Column({
   cards: rawCards,
   onCardDragStart,
   onCardDrop,
-  // onCardDeleteClick,
+  onCardDeleteClick,
   text,
   onTextChange,
   onTextConfirm,
@@ -25,7 +25,7 @@ export function Column({
   }[]
   onCardDragStart?(id: string): void
   onCardDrop?(entered: string | null): void
-  // onCardDeleteClick?(id: string): void
+  onCardDeleteClick?(id: string): void
   text?: string
   onTextChange?(value: string): void
   onTextConfirm?(): void
@@ -94,6 +94,7 @@ export function Column({
               text={text}
               onDragStart={() => handleCardDragStart(id)}
               onDragEnd={() => setDraggingCardID(undefined)}
+              onDeleteClick={() => onCardDeleteClick?.(id)}
             />
           </Card.DropArea>
         ))}

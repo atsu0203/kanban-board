@@ -9,10 +9,12 @@ export function Card({
   text,
   onDragStart,
   onDragEnd,
+  onDeleteClick,
 }: {
   text?: string
   onDragStart?(): void
   onDragEnd?(): void
+  onDeleteClick?(): void
 }) {
   const [drag, setDrag] = useState(false)
   return (
@@ -27,7 +29,6 @@ export function Card({
         setDrag(false)
       }}
     >
-
       {text?.split(/(https?:\/\/\S+)/g).map((fragment, i) =>
         i % 2 === 0 ? (
           <Text key={i}>{fragment}</Text>
@@ -38,7 +39,7 @@ export function Card({
         ),
       )}
 
-      <DeleteButton />
+      <DeleteButton onClick={onDeleteClick} />
     </Container>
   )
 }
@@ -54,7 +55,6 @@ const Container = styled.div.attrs({
   background-color: ${color.White};
   cursor: move;
 `
-
 
 const DeleteButton = styled.button.attrs({
   type: 'button',
