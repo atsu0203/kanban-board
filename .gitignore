@@ -17,7 +17,10 @@
 .env.development.local
 .env.test.local
 .env.production.local
-/.vscode
+.vscode
+.storybook
+.eslintrc.json
+package-lock.json
 
 npm-debug.log*
 yarn-debug.log*

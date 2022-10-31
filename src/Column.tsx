@@ -9,8 +9,8 @@ export function Column({
   title,
   filterValue: rawFilterValue,
   cards: rawCards,
-  // onCardDragStart,
-  // onCardDrop,
+  onCardDragStart,
+  onCardDrop,
   // onCardDeleteClick,
   text,
   onTextChange,
@@ -25,7 +25,7 @@ export function Column({
   }[]
   onCardDragStart?(id: string): void
   onCardDrop?(entered: string | null): void
-  onCardDeleteClick?(id: string): void
+  // onCardDeleteClick?(id: string): void
   text?: string
   onTextChange?(value: string): void
   onTextConfirm?(): void
@@ -50,9 +50,14 @@ export function Column({
     onTextCancel?.()
   }
 
-  // const [draggingCardID, setDraggingCardID] = useState<string | undefined>(
-  //   undefined,
-  // )
+  const [draggingCardID, setDraggingCardID] = useState<string | undefined>(
+    undefined,
+  )
+
+  const handleCardDragStart = (id: string) => {
+    setDraggingCardID(id)
+    onCardDragStart?.(id)
+  }
 
   return (
     <Container>
@@ -77,11 +82,29 @@ export function Column({
 
       <VerticalScroll>
         {cards.map(({ id, text }) => (
-          <Card.DropArea key={id}>
-            <Card text={text} />
+          <Card.DropArea
+            key={id}
+            disabled={
+              draggingCardID !== undefined &&
+              cards[cards.length - 1]?.id === draggingCardID
+            }
+            onDrop={() => onCardDrop?.(null)}
+          >
+            <Card
+              text={text}
+              onDragStart={() => handleCardDragStart(id)}
+              onDragEnd={() => setDraggingCardID(undefined)}
+            />
           </Card.DropArea>
         ))}
-        <Card.DropArea style={{ height: '100%' }} />
+        <Card.DropArea
+          style={{ height: '100%' }}
+          disabled={
+            draggingCardID !== undefined &&
+            cards[cards.length - 1]?.id === draggingCardID
+          }
+          onDrop={() => onCardDrop?.(null)}
+        />
       </VerticalScroll>
     </Container>
   )
