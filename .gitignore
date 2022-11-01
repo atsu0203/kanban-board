@@ -28,3 +28,4 @@ yarn-error.log*
 
 rest-exsample.rest
 .env
+/api/db.json
