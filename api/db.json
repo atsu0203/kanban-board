@@ -41,18 +41,23 @@
     {
       "id": "-wkumDeruhSx",
       "text": "布団に入る\n(:3[___]"
+    },
+    {
+      "id": "_rJFQD25cYoM",
+      "text": "追加タスク"
     }
   ],
   "cardsOrder": {
-    "cXrtw5n8-FsB": "3NRSLMq49xvT",
+    "cXrtw5n8-FsB": "_rJFQD25cYoM",
     "w7DTqK1QQKTI": "TsXP5w9qLeM-",
     "bfrqTfEydU38": "bfrqTfEydU38",
     "dfwMbxZS0EmM": "7lR4Vd3EYixP",
     "7lR4Vd3EYixP": "dfwMbxZS0EmM",
     "TsXP5w9qLeM-": "rh022hj9zG58",
     "rh022hj9zG58": "w7DTqK1QQKTI",
-    "3NRSLMq49xvT": "ulnuLLt5TN93",
+    "3NRSLMq49xvT": "cXrtw5n8-FsB",
     "ulnuLLt5TN93": "-wkumDeruhSx",
-    "-wkumDeruhSx": "cXrtw5n8-FsB"
+    "-wkumDeruhSx": "3NRSLMq49xvT",
+    "_rJFQD25cYoM": "ulnuLLt5TN93"
   }
 }
