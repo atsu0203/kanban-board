@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
+import { useSelector } from 'react-redux'
 import produce from 'immer'
 import { randomID, sortBy, reorderPatch } from './util'
 import { Header as _Header } from './Header'
@@ -7,6 +8,7 @@ import { Column } from './Column'
 import { DeleteDialog } from './DeleteDialog'
 import { Overlay as _Overlay } from './Overlay'
 import { api, ColumnID, CardID } from './api'
+import { State as RootState } from './reducer'
 
 type State = {
   columns?: {
@@ -22,9 +24,9 @@ type State = {
 }
 
 export function App() {
-  const [filterValue, setFilterValue] = useState('')
+  const filterValue = useSelector((state: RootState) => state.filterValue)
+  const setFilterValue = () => {}
   const [{ columns, cardsOrder }, setData] = useState<State>({ cardsOrder: {} })
-
 
   useEffect(() => {
     ;(async () => {
@@ -77,7 +79,7 @@ export function App() {
         draft.columns?.forEach(column => {
           column.cards = sortBy(unorderedCards, draft.cardsOrder, column.id)
         })
-      }) 
+      }),
     )
     api('PATCH /v1/cardsOrder', patch)
   }
@@ -143,14 +145,14 @@ export function App() {
         const column = draft.columns?.find(col =>
           col.cards?.some(c => c.id === cardID),
         )
-         if (!column?.cards) return
+        if (!column?.cards) return
 
-         column.cards = column.cards.filter(c => c.id !== cardID)
- 
-         draft.cardsOrder = {
-           ...draft.cardsOrder,
-           ...patch,
-         }
+        column.cards = column.cards.filter(c => c.id !== cardID)
+
+        draft.cardsOrder = {
+          ...draft.cardsOrder,
+          ...patch,
+        }
       }),
     )
     api('DELETE /v1/cards', {
