@@ -23,41 +23,21 @@
       "text": "布団から出る\n(:3っ)っ -=三[＿＿]"
     },
     {
-      "id": "TsXP5w9qLeM-",
-      "text": "顔を洗う👐"
-    },
-    {
-      "id": "rh022hj9zG58",
-      "text": "歯を磨く🦷"
-    },
-    {
       "id": "3NRSLMq49xvT",
       "text": "朝食をとる🍞"
     },
     {
-      "id": "ulnuLLt5TN93",
-      "text": "SNSをチェックする🐦"
-    },
-    {
       "id": "-wkumDeruhSx",
       "text": "布団に入る\n(:3[___]"
-    },
-    {
-      "id": "_rJFQD25cYoM",
-      "text": "追加タスク"
     }
   ],
   "cardsOrder": {
-    "cXrtw5n8-FsB": "_rJFQD25cYoM",
-    "w7DTqK1QQKTI": "TsXP5w9qLeM-",
+    "cXrtw5n8-FsB": "-wkumDeruhSx",
+    "w7DTqK1QQKTI": "w7DTqK1QQKTI",
     "bfrqTfEydU38": "bfrqTfEydU38",
     "dfwMbxZS0EmM": "7lR4Vd3EYixP",
     "7lR4Vd3EYixP": "dfwMbxZS0EmM",
-    "TsXP5w9qLeM-": "rh022hj9zG58",
-    "rh022hj9zG58": "w7DTqK1QQKTI",
     "3NRSLMq49xvT": "cXrtw5n8-FsB",
-    "ulnuLLt5TN93": "-wkumDeruhSx",
-    "-wkumDeruhSx": "3NRSLMq49xvT",
-    "_rJFQD25cYoM": "ulnuLLt5TN93"
+    "-wkumDeruhSx": "3NRSLMq49xvT"
   }
 }
