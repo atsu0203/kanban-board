@@ -9,6 +9,10 @@ import { DeleteDialog } from './DeleteDialog'
 import { Overlay as _Overlay } from './Overlay'
 import { api, ColumnID, CardID } from './api'
 import { State as RootState } from './reducer'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import db from './firebase'
+// import { collection, getDocs } from 'firebase/firestore'
+import { collection, query, where, getDocs } from 'firebase/firestore'
 
 type State = {
   columns?: {
@@ -45,6 +49,8 @@ export function App() {
         }),
       )
 
+
+      
       const [unorderedCards, cardsOrder] = await Promise.all([
         api('GET /v1/cards', null),
         api('GET /v1/cardsOrder', null),
@@ -139,9 +145,23 @@ export function App() {
   const [deletingCardID, setDeletingCardID] = useState<CardID | undefined>(
     undefined,
   )
-  const deleteCard = () => {
+  const deleteCard = async () => {
     const cardID = deletingCardID
     if (!cardID) return
+
+    // const querySnapshot = await getDocs(collection(db, 'cards'))
+    // querySnapshot.forEach(doc => {
+    //   // doc.data() is never undefined for query doc snapshots
+    //   console.log(doc.id, ' => ', doc.data())
+    // })
+
+    const q = query(collection(db, 'cards'), where('id', '==', "7lR4Vd3EYixP"))
+
+    const querySnapshot = await getDocs(q)
+    querySnapshot.forEach(doc => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, ' => ', doc.data())
+    })
 
     setDeletingCardID(undefined)
 
