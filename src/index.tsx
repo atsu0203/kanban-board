@@ -1,11 +1,14 @@
-import React from 'react';
-import {createGlobalStyle} from 'styled-components';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import cssVariables from './css_variables.json';
+import React from 'react'
+import { createGlobalStyle } from 'styled-components'
+import ReactDOM from 'react-dom/client'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+import { reducer } from './reducer'
+import App from './App'
+import reportWebVitals from './reportWebVitals'
+import cssVariables from './css_variables.json'
 
-const variable = cssVariables.variable;
+const variable = cssVariables.variable
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
@@ -20,20 +23,25 @@ const GlobalStyle = createGlobalStyle`
         color: $base-color;
     }
   }
-`;
+`
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+const store = createStore(
+  reducer,
+  undefined,
+  process.env.NODE_ENV === 'development'
+    ? window.__REDUX_DEVTOOLS_EXTENSION__?.()
+    : undefined,
+)
+
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
-  <>
+  <Provider store={store}>
     <GlobalStyle />
     <App />
-  </>,
-);
+  </Provider>,
+)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
-
+reportWebVitals()
