@@ -7,7 +7,7 @@ import { Header as _Header } from './Header'
 import { Column } from './Column'
 import { DeleteDialog } from './DeleteDialog'
 import { Overlay as _Overlay } from './Overlay'
-import { api, ColumnID, CardID } from './api'
+import { ColumnID, CardID } from './api'
 import { State as RootState } from './reducer'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import db from './firebase'
