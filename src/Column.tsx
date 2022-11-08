@@ -83,14 +83,14 @@ export function Column({
           {filterValue && <ResultCount>{cards.length} results</ResultCount>}
 
           <VerticalScroll>
-            {cards.map(({ id, text }) => (
+            {cards.map(({ id, text }, i) => (
               <Card.DropArea
                 key={id}
                 disabled={
                   draggingCardID !== undefined &&
-                  cards[cards.length - 1]?.id === draggingCardID
+                  (id === draggingCardID || cards[i - 1]?.id === draggingCardID)
                 }
-                onDrop={() => onCardDrop?.(null)}
+                onDrop={() => onCardDrop?.(id)}
               >
                 <Card
                   text={text}
@@ -101,7 +101,7 @@ export function Column({
               </Card.DropArea>
             ))}
             <Card.DropArea
-              style={{ height: '100%' }}
+              style={{ height: '50px' }}
               disabled={
                 draggingCardID !== undefined &&
                 cards[cards.length - 1]?.id === draggingCardID
@@ -115,14 +115,12 @@ export function Column({
   )
 }
 
-
 const Loading = styled.div.attrs({
   children: 'Loading...',
 })`
   padding: 8px;
   font-size: 14px;
 `
-
 
 const Container = styled.div`
   display: flex;
