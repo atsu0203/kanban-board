@@ -2,6 +2,7 @@ export type ColumnID = string & { readonly brand: unique symbol }
 export type CardID = string & { readonly brand: unique symbol }
 
 
+// json-serverの場合
 export type ReqAndRes = {
   'GET /v1/columns': {
     req: null
