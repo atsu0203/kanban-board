@@ -14,7 +14,7 @@ export function DeleteDialog({
 }) {
   return (
     <Container className={className}>
-      <Message>Are you sure to delete?</Message>
+      <Message>本当に削除しますか?</Message>
 
       <ButtonRow>
         <DeleteButton onClick={onConfirm} />
@@ -36,7 +36,7 @@ const Message = styled.div`
   min-height: 100px;
   padding: 16px;
   color: ${color.Black};
-  font-size: 14px;
+  font-size: 18px;
   line-height: 1.7;
 `
 
@@ -50,9 +50,9 @@ const ButtonRow = styled.div`
 `
 
 const DeleteButton = styled(DangerButton).attrs({
-  children: 'Delete',
+  children: '削除する',
 })``
 
 const CancelButton = styled(Button).attrs({
-  children: 'Cancel',
+  children: 'キャンセル',
 })``
