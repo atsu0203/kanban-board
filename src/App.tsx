@@ -11,8 +11,16 @@ import { api, ColumnID, CardID } from './api'
 import { State as RootState } from './reducer'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import db from './firebase'
-// import { collection, getDocs } from 'firebase/firestore'
-import { collection, query, where, getDocs } from 'firebase/firestore'
+import {
+  doc,
+  collection,
+  query,
+  where,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+} from 'firebase/firestore'
 
 type State = {
   columns?: {
@@ -41,7 +49,14 @@ export function App() {
 
   useEffect(() => {
     ;(async () => {
-      const columns = await api('GET /v1/columns', null)
+      // const columns = await api('GET /v1/columns', null)
+
+      // columns取得
+      const querySnapshot1 = await getDocs(query(collection(db, 'columns')))
+      const columns: any[] = []
+      querySnapshot1.forEach(doc => {
+        columns.push(doc.data())
+      })
 
       setData(
         produce((draft: State) => {
@@ -49,12 +64,26 @@ export function App() {
         }),
       )
 
+      // cards取得
+      const querySnapshot2 = await getDocs(query(collection(db, 'cards')))
+      const unorderedCards: any[] = []
+      querySnapshot2.forEach(doc => {
+        unorderedCards.push(doc.data())
+      })
 
-      
-      const [unorderedCards, cardsOrder] = await Promise.all([
-        api('GET /v1/cards', null),
-        api('GET /v1/cardsOrder', null),
-      ])
+      // cardsOrder取得
+      const querySnapshot3 = await getDocs(query(collection(db, 'cardsOrder')))
+      const cardsOrder: Record<string, CardID | ColumnID> = {}
+      querySnapshot3.forEach(doc => {
+        cardsOrder[doc.data().id] = doc.data().next
+      })
+
+      // const [unorderedCards, cardsOrder] = await Promise.all([
+      //   api('GET /v1/cards', null),
+      //   api('GET /v1/cardsOrder', null),
+      // ])
+      // console.log(unorderedCards)
+      // console.log(cardsOrder)
 
       setData(
         produce((draft: State) => {
@@ -71,7 +100,7 @@ export function App() {
     undefined,
   )
 
-  const dropCardTo = (toID: CardID | ColumnID) => {
+  const dropCardTo = async(toID: CardID | ColumnID) => {
     const fromID = draggingCardID
     if (!fromID) return
 
@@ -94,7 +123,24 @@ export function App() {
         })
       }),
     )
-    api('PATCH /v1/cardsOrder', patch)
+
+
+    for (let key in patch) {
+      let CardOrderDocId = ''
+      const querySnapshot = await getDocs(
+        query(collection(db, 'cardsOrder'), where('id', '==', key)),
+      )
+      querySnapshot.forEach(doc => {
+        CardOrderDocId = doc.id
+      })
+      await updateDoc(doc(db, 'cardsOrder', CardOrderDocId), {
+        id: key,
+        next: patch[key]
+      })
+    }
+
+
+    // api('PATCH /v1/cardsOrder', patch)
   }
 
   const setText = (columnID: ColumnID, value: string) => {
@@ -109,7 +155,7 @@ export function App() {
   }
 
   //add
-  const addCard = (columnID: ColumnID) => {
+  const addCard = async (columnID: ColumnID) => {
     const column = columns?.find(c => c.id === columnID)
     if (!column) return
 
@@ -134,11 +180,47 @@ export function App() {
         }
       }),
     )
-    api('POST /v1/cards', {
+    // api('POST /v1/cards', {
+    //   id: cardID,
+    //   text,
+    // })
+
+    //cardsの追加
+    await addDoc(collection(db, 'cards'), { id: cardID, text: text })
+    //cardsOrderの追加
+    await addDoc(collection(db, 'cardsOrder'), {
       id: cardID,
-      text,
+      next: patch[cardID],
     })
-    api('PATCH /v1/cardsOrder', patch)
+
+    const OtherCardId = Object.keys(patch).filter(key => {
+      return patch[key] !== patch[cardID]
+    })
+    if (OtherCardId) {
+      // cardsOrder情報取得、更新2
+      let OtherCardDocId = ''
+      const querySnapshot2 = await getDocs(
+        query(collection(db, 'cardsOrder'), where('id', '==', OtherCardId[0])),
+      )
+      querySnapshot2.forEach(doc => {
+        OtherCardDocId = doc.id
+      })
+      await updateDoc(doc(db, 'cardsOrder', OtherCardDocId), {
+        id: OtherCardId[0],
+        next: patch[OtherCardId[0]],
+      })
+    }
+
+    // 確認用
+    // console.log(patch)
+    // console.log('a')
+    // console.log(cardID)
+    // console.log(patch[cardID])
+    // console.log('b')
+    // console.log(OtherCardId[0])
+    // console.log(patch[OtherCardId[0]])
+
+    // api('PATCH /v1/cardsOrder', patch)
   }
 
   // delete
@@ -148,20 +230,6 @@ export function App() {
   const deleteCard = async () => {
     const cardID = deletingCardID
     if (!cardID) return
-
-    // const querySnapshot = await getDocs(collection(db, 'cards'))
-    // querySnapshot.forEach(doc => {
-    //   // doc.data() is never undefined for query doc snapshots
-    //   console.log(doc.id, ' => ', doc.data())
-    // })
-
-    const q = query(collection(db, 'cards'), where('id', '==', "7lR4Vd3EYixP"))
-
-    const querySnapshot = await getDocs(q)
-    querySnapshot.forEach(doc => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, ' => ', doc.data())
-    })
 
     setDeletingCardID(undefined)
 
@@ -182,10 +250,51 @@ export function App() {
         }
       }),
     )
-    api('DELETE /v1/cards', {
-      id: cardID,
+
+    // api('DELETE /v1/cards', {
+    //   id: cardID,
+    // })
+    console.log(patch)
+
+    // cards削除
+    let CardDocId = ''
+    const querySnapshot1 = await getDocs(
+      query(collection(db, 'cards'), where('id', '==', cardID)),
+    )
+    querySnapshot1.forEach(doc => {
+      CardDocId = doc.id
     })
-    api('PATCH /v1/cardsOrder', patch)
+    await deleteDoc(doc(db, 'cards', CardDocId))
+
+    // cardsOrder削除
+    let CardOrderDocId = ''
+    const querySnapshot2 = await getDocs(
+      query(collection(db, 'cardsOrder'), where('id', '==', cardID)),
+    )
+    querySnapshot2.forEach(doc => {
+      CardOrderDocId = doc.id
+    })
+    await deleteDoc(doc(db, 'cardsOrder', CardOrderDocId))
+
+    // cardsOrder変更
+    const OtherCardId = Object.keys(patch).filter(key => {
+      return patch[key] !== patch[cardID]
+    })
+    if (OtherCardId) {
+      let OtherCardDocId = ''
+      const querySnapshot2 = await getDocs(
+        query(collection(db, 'cardsOrder'), where('id', '==', OtherCardId[0])),
+      )
+      querySnapshot2.forEach(doc => {
+        OtherCardDocId = doc.id
+      })
+      await updateDoc(doc(db, 'cardsOrder', OtherCardDocId), {
+        id: OtherCardId[0],
+        next: patch[OtherCardId[0]],
+      })
+    }
+
+    // api('PATCH /v1/cardsOrder', patch)
   }
 
   return (
