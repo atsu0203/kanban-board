@@ -100,7 +100,7 @@ export function App() {
     undefined,
   )
 
-  const dropCardTo = async(toID: CardID | ColumnID) => {
+  const dropCardTo = async (toID: CardID | ColumnID) => {
     const fromID = draggingCardID
     if (!fromID) return
 

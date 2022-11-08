@@ -29,7 +29,7 @@ export function InputForm({
       <Input
         ref={ref}
         autoFocus
-        placeholder="Enter a note"
+        placeholder="タスクを入力してください"
         value={value}
         onChange={ev => onChange?.(ev.currentTarget.value)}
         onKeyDown={ev => {
@@ -98,9 +98,9 @@ const ButtonRow = styled.div`
 `
 
 const AddButton = styled(ConfirmButton).attrs({
-  children: 'Add',
+  children: '追加',
 })``
 
 const CancelButton = styled(Button).attrs({
-  children: 'Cancel',
+  children: ' キャンセル',
 })``
